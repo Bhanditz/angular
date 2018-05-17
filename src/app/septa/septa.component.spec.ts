@@ -7,6 +7,10 @@ import {DataDetailComponent} from '../data-detail/data-detail.component';
 
 import {DataService} from '../data.service';
 import {MessageService} from '../message.service';
+import {RouterTestingModule} from '@angular/router/testing';
+
+import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
+
 
 
 describe('SeptaComponent', () => {
@@ -21,7 +25,9 @@ describe('SeptaComponent', () => {
       providers: [MessageService, DataService],
       imports: [
         BrowserModule,
-        FormsModule
+        FormsModule,
+        RouterTestingModule,
+        HttpClientModule,
       ],
 
     })

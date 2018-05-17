@@ -6,6 +6,7 @@ import {DataService} from '../data.service';
 import {MessageService} from '../message.service';
 
 
+
 @Component({
   selector: 'app-septa',
   templateUrl: './septa.component.html',
@@ -15,6 +16,7 @@ export class SeptaComponent implements OnInit {
 
   people: People[];
   heroes: Hero[];
+
 
   person: IPerson = {
     firstName: 'John',
@@ -26,7 +28,12 @@ export class SeptaComponent implements OnInit {
 
   selectedHero: Hero;
 
-  constructor(private dataService: DataService,
+  private log(message: string) {
+    this.messageService.add('HeroService: ' + message);
+  }
+
+  constructor(
+              private dataService: DataService,
               private messageService: MessageService) {
   }
 
@@ -36,7 +43,8 @@ export class SeptaComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroes = this.dataService.getHeroes();
+    this.dataService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes);
   }
 
   getPeople(): void {
@@ -44,9 +52,11 @@ export class SeptaComponent implements OnInit {
   }
 
   onSelect(hero: Hero): void {
+    this.log(`hero: ${hero.name}`);
     this.messageService.add(`hero: ${hero.name}`);
     this.selectedHero = hero;
   }
+
 
   getColor(country) {
     switch (country) {
